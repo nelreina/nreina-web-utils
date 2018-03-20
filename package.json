@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/nelreina/nreina-web-utils/issues"
   },
-  "homepage": "https://github.com/nelreina/nreina-web-utils#readme"
+  "homepage": "https://github.com/nelreina/nreina-web-utils#readme",
+  "devDependencies": {
+    "nodemon": "^1.17.2"
+  }
 }
