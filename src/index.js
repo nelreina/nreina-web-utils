@@ -1,3 +1,3 @@
-import createStoreDOM from './redux/index'
+import createStore from './redux/index';
 
-export const createStoreDOM;
+export const createStoreDOM = createStore;
