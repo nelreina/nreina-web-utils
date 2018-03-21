@@ -1,3 +1,4 @@
-import createStore from './redux/index';
+import createStoreDOM from './redux/index';
+import BootstrapField from './components/BootstrapField';
 
-export const createStoreDOM = createStore;
+export { createStoreDOM, BootstrapField };
