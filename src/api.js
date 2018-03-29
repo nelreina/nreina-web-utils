@@ -1,4 +1,4 @@
-const API = 'https://jsonplaceholder.typicode.com';
+const API = '';
 const name = 'API Fetch Error';
 
 const respError = resp => ({
