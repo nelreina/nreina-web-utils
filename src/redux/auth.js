@@ -10,13 +10,24 @@ const initialState = {
   isAuthenticated: false
 };
 
-export const login = () => async dispatch => {
+export const login = cred => async dispatch => {
   dispatch({ type: LOGININ });
-  const payload = await post(`/api/login`, {});
-  dispatch({
-    type: LOGIN_SUCCESS,
-    payload
-  });
+  try {
+    const payload = await post(`/api/login`, cred);
+    dispatch({
+      type: LOGIN_SUCCESS,
+      payload
+    });
+  } catch (error) {
+    const payload =
+      error.message.indexOf('403') > -1
+        ? 'Username or Password Incorrect!'
+        : error.message;
+    dispatch({
+      type: LOGIN_ERROR,
+      payload
+    });
+  }
 };
 export const logout = param => ({
   type: LOGOUT
@@ -44,6 +55,7 @@ export default (state = initialState, action) => {
       return assign({}, state, {
         error: true,
         message: payload,
+        inprogress: false,
         isAuthenticated: false,
         user: {}
       });
