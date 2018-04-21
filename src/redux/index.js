@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
-
+import api from '../api'
 const logger = store => next => action => {
   console.group(action.type);
   console.info('dispaching', action);
@@ -13,7 +13,7 @@ const logger = store => next => action => {
 
 export default (rootReducer, initialState = {}) => {
   let enhancer;
-  const middelwares = applyMiddleware(thunk, logger);
+  const middelwares = applyMiddleware(thunk.withExtraArgument(api), logger);
 
   enhancer = composeWithDevTools(middelwares);
 
