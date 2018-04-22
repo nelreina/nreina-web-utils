@@ -1,5 +1,4 @@
 import { assign } from 'lodash';
-import { post } from '../api';
 
 const LOGININ = 'LOGININ';
 const LOGOUT = 'LOGOUT';
@@ -10,10 +9,10 @@ const initialState = {
   isAuthenticated: false
 };
 
-export const login = cred => async dispatch => {
+export const login = cred => async (dispatch, getState, api) => {
   dispatch({ type: LOGININ });
   try {
-    const payload = await post(`/api/login`, cred);
+    const payload = await api.post(`/login`, cred);
     dispatch({
       type: LOGIN_SUCCESS,
       payload
