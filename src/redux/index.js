@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
-import api from '../api'
+import { api } from '../index';
 const logger = store => next => action => {
   console.group(action.type);
   console.info('dispaching', action);
