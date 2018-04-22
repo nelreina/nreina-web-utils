@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
-import { api } from '../index';
+import Api from '../api';
 const logger = store => next => action => {
   console.group(action.type);
   console.info('dispaching', action);
@@ -11,11 +11,11 @@ const logger = store => next => action => {
   return result;
 };
 
-export default (rootReducer, initialState = {}) => {
-  let enhancer;
+export default (rootReducer, initialState = {}, host = '') => {
+  const api = new Api(host);
   const middelwares = applyMiddleware(thunk.withExtraArgument(api), logger);
 
-  enhancer = composeWithDevTools(middelwares);
+  const enhancer = composeWithDevTools(middelwares);
 
   return createStore(rootReducer, initialState, enhancer);
 };

@@ -1,4 +1,3 @@
-const API = '';
 const name = 'API Fetch Error';
 
 const respError = resp => ({
@@ -6,17 +5,18 @@ const respError = resp => ({
   message: `${resp.status} - ${resp.statusText}`
 });
 
-export const get = async path => {
-  const resp = await fetch(`${API}${path}`);
+export async function get(path) {
+  const host = this.host || '';
+  const resp = await fetch(`${host}${path}`);
   // console.info(resp);
   if (resp.ok) {
     return resp.json();
   } else {
     throw respError(resp);
   }
-};
+}
 
-export const post = async (path, data) => {
+export async function post(path, data) {
   const postOptions = {
     method: 'POST',
     body: JSON.stringify(data),
@@ -24,12 +24,21 @@ export const post = async (path, data) => {
       'content-type': 'application/json'
     }
   };
-  console.info(postOptions);
-  const resp = await fetch(`${API}${path}`, postOptions);
-  console.info(resp);
+  const host = this.host || '';
+  const resp = await fetch(`${host}${path}`, postOptions);
   if (resp.ok) {
     return resp.json();
   } else {
     throw respError(resp);
   }
-};
+}
+
+class Api {
+  constructor(host) {
+    this.host = host || '';
+    this.get = get;
+    this.post = post;
+  }
+}
+
+export default Api;
