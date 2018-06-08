@@ -44,11 +44,12 @@ export default (state = initialState, action) => {
       return assign({}, state, {
         error: false,
         inprogress: false,
+        message: null,
         isAuthenticated: payload.isAuthenticated,
         user: payload.user
       });
     case LOGININ:
-      return assign({}, state, { error: false, inprogress: true, user: {} });
+      return assign({}, state, { error: false, message:null, inprogress: true, user: {} });
     case LOGOUT:
     case LOGIN_ERROR:
       return assign({}, state, {
